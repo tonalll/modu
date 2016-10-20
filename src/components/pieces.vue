@@ -55,8 +55,8 @@ export default {
     },
     computed: {},
     mounted() {
-      console.info(this.left);
-      console.info($(this.$el).width(),'---------');
+      // console.info(this.left);
+      // console.info($(this.$el).width(),'---------');
       // this.$store.commit('leftAdd',$(this.$el).width());
       // this.$state.commit('leftAdd');
         // console.info(this.piecesArr);
