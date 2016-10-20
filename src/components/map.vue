@@ -20,11 +20,11 @@
     <lRow class="" bgColor='#eee'>
         <lCol class="" width='40%' height="600px" :style="{positon:'relative'}">
             <!-- 地图区域 -->
-            <Pieces is-map=true :pieces-arr="mapArr" :pieces-width="getBaseWidth()*mapArr.length+'px'" :col-height="colHeight"></Pieces>
+            <Pieces is-map=true :pieces-arr="mapArr" :pieces-width="getBaseWidth()*mapArr.length+'px'" :col-height="$store.state.baseWidth+'px'"></Pieces>
         </lCol>
         <lCol class="" bgColor='#ddd' width='60%' height="600px" :style="{position:'relative'}">
             <!-- 碎片区域 -->
-            <Pieces v-for="(item,index) in piecesArr" :left='$store.state.left' :pieces-arr="item" :pieces-width="getBaseWidth()*item[0].length+'px'" :col-height="colHeight"></Pieces>
+            <Pieces v-for="(item,index) in piecesArr" :left='$store.state.left' :pieces-arr="item" :pieces-width="getBaseWidth()*item[0].length+'px'" :col-height="$store.state.baseWidth+'px'"></Pieces>
     </lRow>
 </div>
 
@@ -50,8 +50,7 @@ var options = {
 
 export default {
     name: 'map',
-    props: {
-    },
+    props: {},
     data() {
         return {
             a: new String('aaa'),
@@ -64,16 +63,7 @@ export default {
                 // mapUrl:'http://211.149.193.19:8080/api/customers'
         }
     },
-    computed: {
-        colWidth: function() {
-            // return this._width_=='auto'?this._width_:(this.baseWidth*this.mapData.map.length+'px')
-            return 100 / this.mapData.map.length + '%'
-        },
-        colHeight: function() {
-            // return this._width_=='auto'?this._width_:(this.baseWidth*this.mapData.map.length+'px')
-            return this.$store.state.baseWidth + 'px'
-        }
-    },
+    computed: {},
     mounted() {
         window.tmpmap = this;
         this.getMapData();
@@ -112,13 +102,13 @@ export default {
                 return arr;
             });
         },
-        leftAdd:function(){
-          this.$store.commit('leftAdd');
+        leftAdd: function() {
+            this.$store.commit('leftAdd');
         },
-        getBaseWidth:function(){
-          var tmp=this.$store.commit('getBaseWidth');
-          // console.info(tmp);
-          return this.$store.state.baseWidth;
+        getBaseWidth: function() {
+            var tmp = this.$store.commit('getBaseWidth');
+            // console.info(tmp);
+            return this.$store.state.baseWidth;
         }
     },
     components: {
