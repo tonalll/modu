@@ -1,14 +1,7 @@
 <style lang="css">
 
-.geziOk {
-    background-color: none;
-    color: none;
-}
-
-.gezi {
-    background-color: #000;
-    color: #fff;
-    cursor: pointer;
+.map {
+    border: 1px solid #000;
 }
 
 </style>
@@ -16,15 +9,16 @@
 <template lang="html">
 
 <div @click='getBaseWidth()'>
-    第{{mapData.level}}关 第moud数{{mapData.level}} 数据是：{{mapData}}---
+    maxLeft:{{$store.state.maxLeft}}
+    <br> minTop:{{$store.state.minTop}}
+    <br> 第{{mapData.level}}关 第moud数{{mapData.level}} 数据是：{{mapData}}---
     <lRow class="" bgColor='#eee'>
-        <lCol class="" width='40%' height="600px" :style="{positon:'relative'}">
+        <lCol id='con' class="" width='100%' height="600px" :style="{position:'relative'}">
             <!-- 地图区域 -->
-            <Pieces is-map=true :pieces-arr="mapArr" :pieces-width="getBaseWidth()*mapArr.length+'px'" :col-height="$store.state.baseWidth+'px'"></Pieces>
-        </lCol>
-        <lCol class="" bgColor='#ddd' width='60%' height="600px" :style="{position:'relative'}">
+            <Pieces is-map=true :pieces-arr="mapArr" :pieces-width="getBaseWidth()*mapArr.length+'px'"></Pieces>
             <!-- 碎片区域 -->
-            <Pieces v-for="(item,index) in piecesArr" :left='$store.state.left' :pieces-arr="item" :pieces-width="getBaseWidth()*item[0].length+'px'" :col-height="$store.state.baseWidth+'px'"></Pieces>
+            <Pieces v-for="(item,index) in piecesArr" :left='$store.state.left' :pieces-arr="item" :pieces-width="getBaseWidth()*item[0].length+'px'"></Pieces>
+        </lCol>
     </lRow>
 </div>
 
@@ -36,6 +30,7 @@ import lRow from './row.vue'
 import lCol from './col.vue'
 import Pieces from './pieces.vue'
 import Gezi from './gezi.vue'
+import $ from 'jquery'
 import {
     mapGetters, mapActions, mapMutations
 }
@@ -83,6 +78,7 @@ export default {
                 // vm.$set('mapData',response);
                 // console.info(vm.mapData.map);
                 this.updateMapData();
+                this.init();
             }).catch(function(response) {
                 // console.log(response)
             });
@@ -106,9 +102,16 @@ export default {
             this.$store.commit('leftAdd');
         },
         getBaseWidth: function() {
-            var tmp = this.$store.commit('getBaseWidth');
-            // console.info(tmp);
+            // console.info(this.$store.state.baseWidth);
             return this.$store.state.baseWidth;
+        },
+        init: function() {
+            // console.info(this.$store.state.maxLeft);
+            // this.$store.state.origin.x=
+            this.$store.state.maxLeft = $('body').width();
+            this.$store.state.piecesPosition.initLeft = (this.mapArr.length + 2) * this.$store.state.baseWidth;
+            this.$store.state.piecesPosition.left = (this.mapArr.length + 2) * this.$store.state.baseWidth;
+            // console.info(this.$store.state.maxLeft);
         }
     },
     components: {

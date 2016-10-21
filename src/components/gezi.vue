@@ -1,6 +1,17 @@
 <style lang="css">
 
 
+.geziOk {
+    background-color: none;
+    color: none;
+}
+
+.gezi {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
 
 </style>
 

@@ -6,17 +6,26 @@ import * as actions from './actions'
 import * as mutations from './mutations'
 
 Vue.use(Vuex);
-console.info($);
+// console.info($);
 const state={
   maxLeft:0,
-  minTop:0,
+  maxHeight:0,
+  baseWidth:40,
+  piecesPosition:{
+    initLeft:400,
+    left:40,
+    top:40
+  },
   mapPosition:{
     _top:0,
     _left:0,
     top_:0,
     left_:0
   },
-  baseWidth:40,
+  origin:{
+    x:0,
+    y:0
+  }
 };
 const store=new Vuex.Store({
   state,
